@@ -277,11 +277,45 @@ void createlegs()
 
 	}
 }
+void lighting()
+{
+	
+	GLfloat diffuse0[]={1.0, 1.0, 1.0, 1.0};
+GLfloat ambient0[]={0.0, 0.0, 0.0, 1.0};
+GLfloat specular0[]={1.0, 1.0, 1.0, 1.0};
+GLfloat light0_pos[]={-500.0, 100.0, 100,0, 0.0};
+GLfloat a = 0.8;
+glEnable(GL_LIGHTING);
+glEnable(GL_LIGHT0);
+glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
+glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
+glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
+glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
+glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, a);
+}
+void material()
+{
+	GLfloat ambient[] = {0.2, 0.2, 0.2, 1.0};
+GLfloat diffuse[] = {0.8, 0.5, 0.2, 1.0};
+GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
+GLfloat shine = 100.0;
+glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+glMaterialf(GL_FRONT, GL_SHININESS, shine);
+}
 
 // GLUT callback. Called to draw the scene.
 void My_Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+
+lighting();
+material();
+
 
 	
 
@@ -327,17 +361,17 @@ void My_Timer(int val)
 {
 	timer_cnt++;
 	if(press==1)
-		view_y=20;
+		view_y=10;
 	else if(press==2)
-		view_y=-20;
+		view_y=-10;
 	else if(press==3)
-		view_x=20;
+		view_x=10;
 	else if(press==4)
-		view_x=-20;
+		view_x=-10;
 	else if(press==5)
-		view_z=20;
+		view_z=10;
 	else if(press==6)
-		view_z=-20;
+		view_z=-10;
 	else
 	{
 		view_x=0;
