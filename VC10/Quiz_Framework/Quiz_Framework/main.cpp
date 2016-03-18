@@ -68,6 +68,50 @@ void createbody()
 		drawSphere(1.0,1.0,0.0,1.3);
 		glPopMatrix();
 
+		glPushMatrix();
+		glTranslated(0.75,0.7,1.2);
+		glScaled(1.0,0.7,0.5);
+		drawSphere(1.0,1.0,0.0,0.8);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(-0.75,0.7,1.2);
+		glScaled(1.0,0.7,0.5);
+		drawSphere(1.0,1.0,0.0,0.8);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(0.75,-0.05,1.2);
+		glScaled(1.0,0.7,0.5);
+		drawSphere(1.0,1.0,0.0,0.8);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(-0.75,-0.05,1.2);
+		glScaled(1.0,0.7,0.5);
+		drawSphere(1.0,1.0,0.0,0.8);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(0.75,-0.85,1.2);
+		glScaled(1.0,0.7,0.5);
+		drawSphere(1.0,1.0,0.0,0.8);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(-0.75,-0.85,1.2);
+		glScaled(1.0,0.7,0.5);
+		drawSphere(1.0,1.0,0.0,0.8);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(0.0,-2.5,1.0);
+		glScaled(4.0,1.0,0.2);
+		drawCube(1.0,1.0,0.0,1.0);
+		glPopMatrix();
+
+		
+
 		glPopMatrix();
 	}
 }
@@ -282,7 +326,7 @@ void lighting()
 	
 	GLfloat diffuse0[]={1.0, 1.0, 1.0, 1.0};
 GLfloat ambient0[]={0.0, 0.0, 0.0, 1.0};
-GLfloat specular0[]={1.0, 1.0, 1.0, 1.0};
+GLfloat specular0[]={0.0, 0.2, 0.4, 0.0};
 GLfloat light0_pos[]={-500.0, 100.0, 100,0, 0.0};
 GLfloat a = 0.8;
 glEnable(GL_LIGHTING);
@@ -298,7 +342,7 @@ void material()
 	GLfloat ambient[] = {0.2, 0.2, 0.2, 1.0};
 GLfloat diffuse[] = {0.8, 0.5, 0.2, 1.0};
 GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
-GLfloat shine = 100.0;
+GLfloat shine = 20.0;
 glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
 glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
 glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
@@ -313,8 +357,8 @@ void My_Display()
 	glEnable(GL_LIGHT0);
 
 
-lighting();
-material();
+	lighting();
+	material();
 
 
 	
