@@ -2,6 +2,7 @@
 #include <freeglut.h>
 #include <cstdio>
 #include <cstdlib>
+#include <texture_loader.h>
 
 #define MENU_TIMER_START 1
 #define MENU_TIMER_STOP 2
@@ -20,6 +21,9 @@ int press;
 int angle=1,dir=0;
 int angle2=1, dir2=0;
 int angle3=1, dir3=0;
+
+GLuint texture_jpg;
+GLuint texture_png;
 
 // Print OpenGL context related information.
 void dumpInfo(void)
@@ -178,6 +182,20 @@ void createhands()
 		glTranslated(-1.5,0.0,0.0);
 
 		glPushMatrix();				//left-mid-hand
+
+		glBindTexture(GL_TEXTURE_2D, texture_jpg);
+	glBegin(GL_QUADS);
+			glTexCoord2f(0.0f,0.0f);
+			glVertex3f(-1.0f,-0.5f,0.6f);
+			glTexCoord2f(1.0f,0.0f);
+			glVertex3f(1.0f,-0.5f,0.6f);
+			glTexCoord2f(1.0f,1.0f);
+			glVertex3f(1.0f,0.5f,0.6f);
+			glTexCoord2f(0.0f,1.0f);
+			glVertex3f(-1.0f,0.5f,0.6f);
+		glEnd();
+		glBindTexture(GL_TEXTURE_2D, texture_jpg);
+
 		glScaled(2.0,1.0,1.0);
 		drawCube(0.5,0.5,0.5,1.0);
 		glPopMatrix();
@@ -349,13 +367,44 @@ glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
 glMaterialf(GL_FRONT, GL_SHININESS, shine);
 }
 
+void initTextures()
+{
+	// load jpg
+	texture_data tdata = load_jpg("nthu.jpg"); // return width * height * 3 uchars
+	if(tdata.data == 0)
+	{
+		// load failed
+		return;
+	}
+	glGenTextures(1, &texture_jpg);
+    glBindTexture(GL_TEXTURE_2D, texture_jpg);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, tdata.width, tdata.height, 0, GL_RGB, GL_UNSIGNED_BYTE, tdata.data); // Use GL_RGB
+	glGenerateMipmap(GL_TEXTURE_2D);
+	free_texture_data(tdata);
+	
+	// load png
+	tdata = load_png("nthu.png"); // return width * height * 4 uchars
+	if(tdata.data == 0)
+	{
+		// load failed
+		return;
+	}
+	glGenTextures(1, &texture_png);
+    glBindTexture(GL_TEXTURE_2D, texture_png);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, tdata.width, tdata.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tdata.data); // Use GL_RGBA
+	glGenerateMipmap(GL_TEXTURE_2D);
+	free_texture_data(tdata);
+}
+
 // GLUT callback. Called to draw the scene.
 void My_Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-
+	glEnable(GL_TEXTURE_2D);
 
 	lighting();
 	material();
@@ -574,6 +623,7 @@ int main(int argc, char *argv[])
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
+	initTextures();
 	////////////////////////
 
 	// Create a menu and bind it to mouse right button.

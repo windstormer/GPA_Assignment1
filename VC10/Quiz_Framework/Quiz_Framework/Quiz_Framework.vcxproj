@@ -44,8 +44,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\..\freeglut;$(SolutionDir)\..\glew;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\freeglut;$(SolutionDir)\..\glew;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\..\freeglut;$(SolutionDir)\..\glew;$(SolutionDir)\..\texture_loader;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\freeglut;$(SolutionDir)\..\glew;$(SolutionDir)\..\texture_loader;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -76,7 +76,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;texture_loader.lib;jpeg.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
